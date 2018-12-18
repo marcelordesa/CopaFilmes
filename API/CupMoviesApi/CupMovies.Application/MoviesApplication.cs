@@ -2,6 +2,7 @@
 using CupMovies.Domain.Contracts.Infrastructure;
 using CupMovies.Domain.Entities;
 using CupMovies.Infrastructure;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -81,20 +82,40 @@ namespace CupMovies.Application
 
         public async Task<MovieCollection> GetMovies()
         {
-            this.Context = new MoviesContext();
-            return await this.Context.GetMovies();
+            try
+            {
+                this.Context = new MoviesContext();
+                return await this.Context.GetMovies();
+            }
+            catch(Exception ex)
+            {
+                var movies = new MovieCollection();
+                movies.Error = true;
+                movies.Message = ex.Message;
+                return movies;
+            }
         }
 
         public MovieCollection GetResultCupMovies(MovieCollection movies)
         {
-            movies.SortMoviesSelected();
-            if (movies.Error)
-                return movies;
+            try
+            {
+                movies.SortMoviesSelected();
+                if (movies.Error)
+                    return movies;
 
-            var moviesSecondStep = FirstStep(movies);
-            var moviesFinalStep = SecondStep(moviesSecondStep);
+                var moviesSecondStep = FirstStep(movies);
+                var moviesFinalStep = SecondStep(moviesSecondStep);
 
-            return GetFinalSeller(moviesFinalStep);
+                return GetFinalSeller(moviesFinalStep);
+            }
+            catch(Exception ex)
+            {
+                var moviesException = new MovieCollection();
+                moviesException.Error = true;
+                moviesException.Message = ex.Message;
+                return moviesException;
+            }
         }
     }
 }
