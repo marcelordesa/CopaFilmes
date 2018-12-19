@@ -11,21 +11,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CupMovies.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
     {
         IApplication application = ApplicationFactory.GetApplicationInstance<MoviesApplication>();
 
+        [Route("api/Movies")]
         [HttpGet]
         public async Task<MovieCollection> Get()
         {
             return await application.GetMovies();
         }
 
+        [Route("api/Movies/PostMovies")]
         [HttpPost]
-        public MovieCollection PostMovies([FromBody] MovieCollection movies)
+        public ActionResult<MovieCollection> PostMovies([FromBody] MovieCollection movies)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             return application.GetResultCupMovies(movies);
         }
     }

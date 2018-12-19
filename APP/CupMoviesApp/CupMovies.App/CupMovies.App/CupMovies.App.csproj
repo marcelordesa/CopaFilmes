@@ -15,11 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Movies\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Views\Movies\MoviesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Movies\ResultCupMoviesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

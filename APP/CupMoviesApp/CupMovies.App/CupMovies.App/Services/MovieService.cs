@@ -49,7 +49,7 @@ namespace CupMovies.App.Services
                 client = new HttpClient();
                 client.MaxResponseContentBufferSize = 256000;
 
-                var uri = new Uri(string.Format(App.UrlService + "PostMovies"));
+                var uri = new Uri(string.Format(App.UrlService + "Movies/PostMovies"));
 
                 var json = JsonConvert.SerializeObject(movies);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -60,6 +60,14 @@ namespace CupMovies.App.Services
                     moviesResult = new MovieCollectionModel();
                     var result = await response.Content.ReadAsStringAsync();
                     moviesResult = JsonConvert.DeserializeObject<MovieCollectionModel>(result);
+                }
+                else
+                {
+                    moviesResult = new MovieCollectionModel
+                    {
+                        Error = true,
+                        Message = "Ocorreu algum erro no API!"
+                    };
                 }
             }
             catch (Exception ex)

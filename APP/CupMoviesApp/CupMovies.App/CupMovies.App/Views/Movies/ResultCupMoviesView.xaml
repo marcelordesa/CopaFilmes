@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CupMovies.App.Views.Movies.ResultCupMoviesView">
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         BackgroundColor="#C0C0C0">
+                <Grid Margin="20"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Text="1º" 
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           FontSize="Large"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding FirstMovie, Mode=TwoWay}" 
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           FontAttributes="Bold"
+                           LineBreakMode="WordWrap"/>
+                </Grid>
+                <Grid Margin="20"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Text="2º" 
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           FontSize="Large"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding SecondMovie, Mode=TwoWay}" 
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           FontAttributes="Bold"
+                           LineBreakMode="WordWrap"/>
+                </Grid>
+            </StackLayout>
+            <ContentView BackgroundColor="#222222" Opacity="0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading, Mode=TwoWay}">
+            </ContentView>
+            <ActivityIndicator AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                               IsRunning="{Binding IsLoading, Mode=TwoWay}"
+                               IsVisible="{Binding IsLoading, Mode=TwoWay}" />            
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

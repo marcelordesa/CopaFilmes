@@ -4,44 +4,78 @@
              x:Class="CupMovies.App.Views.Movies.MoviesView">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
+                        VerticalOptions="FillAndExpand">
             <StackLayout HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand"
-                     Margin="20">
+                         VerticalOptions="FillAndExpand"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         Margin="20">
                 <ListView HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand"
-                          ItemsSource="{Binding Movies}">
+                          VerticalOptions="FillAndExpand"
+                          RowHeight="60"
+                          SelectedItem="{Binding SelectedMovie, Mode=TwoWay}"
+                          ItemsSource="{Binding Movies, Mode=TwoWay}">
                     <ListView.Header>
-                        <StackLayout Padding="10,5,0,5"
-                                 BackgroundColor="#C0C0C0"
-                                 Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal">
+                            <Grid HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="Start">
+                                <Label Text="Limpar"
+                                       HorizontalOptions="Start"
+                                       FontSize="Large"
+                                       FontAttributes="Bold">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ClearCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                            <StackLayout Padding="10,5,10,5"
+                                         BackgroundColor="#C0C0C0"
+                                         Orientation="Horizontal"
+                                         HorizontalOptions="CenterAndExpand"
+                                         Margin="0,0,0,10">
                             <Label Text="Selecionados " 
-                               HorizontalOptions="Center" 
-                               HorizontalTextAlignment="Center" />
-                            <Label Text="{Binding CountSelectedMovies}" 
-                               HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center" />
+                                   HorizontalOptions="Center" 
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding CountSelectedMovies, Mode=TwoWay}" 
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" />
                             <Label Text=" de " 
-                               HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center" />
-                            <Label Text="{Binding CountTotalMovies}" 
-                               HorizontalOptions="Center" 
-                               HorizontalTextAlignment="Center" />
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding CountTotalMovies, Mode=TwoWay}" 
+                                   HorizontalOptions="Center" 
+                                   HorizontalTextAlignment="Center" />
                             <Label Text=" filmes"
-                               HorizontalOptions="Center" 
-                               HorizontalTextAlignment="Center" />
+                                   HorizontalOptions="Center" 
+                                   HorizontalTextAlignment="Center" />
+                        </StackLayout>
+                            <Grid HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="Start">
+                                <Label Text="Gerar"
+                                       HorizontalOptions="End"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       IsVisible="{Binding IsResult, Mode=TwoWay}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ResultCupCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
                         </StackLayout>
                     </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem Clicked="MenuItem_Clicked"  CommandParameter="{Binding .}"
-                                          Text="Excluir" IsDestructive="True" />
+                                    <MenuItem Clicked="MenuItem_Clicked" 
+                                              CommandParameter="{Binding .}"
+                                              Text="Excluir" IsDestructive="True" />
                                 </ViewCell.ContextActions>
-                                <StackLayout Padding="15,0">
-                                    <Label Text="{Binding Titulo}" />
-                                    <Label Text="{Binding Ano}" FontSize="Small" />
+                                <StackLayout Padding="15" 
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding Titulo, Mode=TwoWay}" />
+                                    <Label Text="{Binding Ano, Mode=TwoWay}" 
+                                           FontSize="Micro" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -49,14 +83,14 @@
                 </ListView>
             </StackLayout>
             <ContentView BackgroundColor="#222222" Opacity="0.5"
-                                 AbsoluteLayout.LayoutFlags="All"
-                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                 IsVisible="{Binding IsLoading, Mode=TwoWay}">
+                         AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         IsVisible="{Binding IsLoading, Mode=TwoWay}">
             </ContentView>
             <ActivityIndicator AbsoluteLayout.LayoutFlags="PositionProportional"
-                           AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
-                           IsRunning="{Binding IsLoading, Mode=TwoWay}"
-                           IsVisible="{Binding IsLoading, Mode=TwoWay}" />
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                               IsRunning="{Binding IsLoading, Mode=TwoWay}"
+                               IsVisible="{Binding IsLoading, Mode=TwoWay}" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

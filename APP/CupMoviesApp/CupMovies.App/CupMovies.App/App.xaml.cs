@@ -1,4 +1,5 @@
-﻿using CupMovies.App.Services;
+﻿using CupMovies.App.Models;
+using CupMovies.App.Services;
 using CupMovies.App.Views.Movies;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,13 +9,13 @@ namespace CupMovies.App
 {
     public partial class App : Application
     {
-        public const string UrlService = "http://localhost:54617/api/";
+        public const string UrlService = "http://192.168.0.58:45455/api/";
 
         public App()
         {
             InitializeComponent();
             DependencyService.Register<Services.Interfaces.IMovieService, MovieService>();
-            MainPage = new MoviesView();
+            MainPage = new NavigationPage(new MoviesView());
         }
 
         protected override void OnStart()
@@ -30,6 +31,22 @@ namespace CupMovies.App
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        public static MovieCollectionModel ResultFinalCup
+        {
+            get
+            {
+                if (App.Current.Properties.ContainsKey("ResultFinalCup"))
+                {
+                    return (MovieCollectionModel)App.Current.Properties["ResultFinalCup"];
+                }
+                return new MovieCollectionModel();
+            }
+            set
+            {
+                App.Current.Properties["ResultFinalCup"] = value;
+            }
         }
     }
 }
